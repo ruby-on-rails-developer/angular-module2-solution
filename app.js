@@ -10,22 +10,27 @@
   function ToBuyController($scope, ShoppingListCheckOffService) {
     var showListToBuy = this;
 
-    showListToBuy.itemsToBuy = ShoppingListCheckOffService.getItemsToBuy();
-    showListToBuy.isEmpty = ShoppingListCheckOffService.isListToBuyEmpty();
-
     $scope.boughtItem = function(index) {
       console.log("click button: index is ", index);
 
       ShoppingListCheckOffService.boughtItem(index);
     };
+
+    $scope.itemsToBuy = function() {
+      console.log("get items");
+      return ShoppingListCheckOffService.getItemsToBuy();
+    };
+    $scope.isEmpty = function() {
+      return ShoppingListCheckOffService.isListToBuyEmpty();
+    };
   }
 
-  AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
-  function AlreadyBoughtController(ShoppingListCheckOffService) {
+  AlreadyBoughtController.$inject = ['$scope', 'ShoppingListCheckOffService'];
+  function AlreadyBoughtController($scope, ShoppingListCheckOffService) {
     var showListBought = this;
 
-    showListBought.itemsBought = ShoppingListCheckOffService.getItemsBought();
-    showListBought.isEmpty = ShoppingListCheckOffService.isListBoughtEmpty();
+    $scope.itemsBought = function() { return ShoppingListCheckOffService.getItemsBought(); };
+    $scope.isEmpty = function() { return ShoppingListCheckOffService.isListBoughtEmpty();  };
   }
 
   function ShoppingListCheckOffService() {
@@ -40,17 +45,20 @@
     ];
     var bought = [];
 
-    service.getItemsToBuy = function () { return buy; };
-    service.isListToBuyEmpty = function () { return buy[0] === undefined; };
+    return {
+      boughtItem: function(itemIndex) {
+          var item = buy[itemIndex];
 
-    service.getItemsBought = function () { return bought; };
-    service.isListBoughtEmpty = function () { return bought[0] === undefined; };
+          buy.splice(itemIndex,1);
+          bought.push(item);
 
-    service.BoughtItem = function(itemIndex) {
-      var item = service.buy[itemIndex];
-
-      service.buy.splice(itemIndex,1);
-      service.bought.push(item);
+          console.log("bought: ", bought);
+          console.log("buy:    ", buy);
+        },
+      getItemsToBuy: function () { return buy; },
+      isListToBuyEmpty: function () { return buy[0] === undefined; },
+      getItemsBought: function () { return bought; },
+      isListBoughtEmpty: function () { return bought[0] === undefined; }
     };
   }
 })();

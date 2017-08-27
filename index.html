@@ -33,22 +33,22 @@
     <!-- To Buy List -->
     <div class="col-md-6" ng-controller="ToBuyController as showListToBuy">
      <h2>To Buy:</h2>
-     <ul ng-repeat="item in showListToBuy.itemsToBuy">
+     <ul ng-repeat="item in itemsToBuy()">
        <li>Buy {{item.quantity}} {{item.name}}
           <button class="btn btn-default" ng-click="boughtItem($index)">
             <span class="glyphicon glyphicon-ok"></span> Bought</button>
       </li>
      </ul>
-     <div class="emptyMessage" ng-if="showListToBuy.isEmpty">Everything is bought!</div>
+     <div class="emptyMessage" ng-if="isEmpty()">Everything is bought!</div>
     </div>
 
     <!-- Already Bought List -->
     <div class="col-md-6" ng-controller="AlreadyBoughtController as showListBought">
      <h2>Already Bought:</h2>
-     <ul ng-repeat="item in showListBought.itemsBought">
+     <ul ng-repeat="item in itemsBought()">
        <li>Bought {{item.quantity}} {{item.name}}</li>
      </ul>
-     <div class="emptyMessage" ng-if="showListBought.isEmpty">Nothing bought yet.</div>
+     <div class="emptyMessage" ng-if="isEmpty()">Nothing bought yet.</div>
     </div>
   </div>
 </div>
