@@ -8,16 +8,10 @@
 
   ToBuyController.$inject = ['$scope','ShoppingListCheckOffService'];
   function ToBuyController($scope, ShoppingListCheckOffService) {
-    var showListToBuy = this;
-
     $scope.boughtItem = function(index) {
-      console.log("click button: index is ", index);
-
       ShoppingListCheckOffService.boughtItem(index);
     };
-
     $scope.itemsToBuy = function() {
-      console.log("get items");
       return ShoppingListCheckOffService.getItemsToBuy();
     };
     $scope.isEmpty = function() {
@@ -27,8 +21,6 @@
 
   AlreadyBoughtController.$inject = ['$scope', 'ShoppingListCheckOffService'];
   function AlreadyBoughtController($scope, ShoppingListCheckOffService) {
-    var showListBought = this;
-
     $scope.itemsBought = function() { return ShoppingListCheckOffService.getItemsBought(); };
     $scope.isEmpty = function() { return ShoppingListCheckOffService.isListBoughtEmpty();  };
   }
@@ -51,9 +43,6 @@
 
           buy.splice(itemIndex,1);
           bought.push(item);
-
-          console.log("bought: ", bought);
-          console.log("buy:    ", buy);
         },
       getItemsToBuy: function () { return buy; },
       isListToBuyEmpty: function () { return buy[0] === undefined; },
