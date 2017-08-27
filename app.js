@@ -26,8 +26,6 @@
   }
 
   function ShoppingListCheckOffService() {
-    var service = this;
-
     var buy = [
       { name: "cookies", quantity: 10 },
       { name: "oranges", quantity: 5  },
